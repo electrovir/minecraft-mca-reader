@@ -9,5 +9,6 @@ export function getBlockNameIndexOrCreateAnIndex(
     currentMapping: MinecraftBlockNameMapping,
     blockName: string,
 ): number {
-    currentMapping.byName[blockName];
+    throw new Error('implement this');
+    return currentMapping.byName[blockName]!;
 }

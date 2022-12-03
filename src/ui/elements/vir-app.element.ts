@@ -7,7 +7,7 @@ export const VirApp = defineElementNoInputs({
     tagName: 'vir-app',
     stateInit: {
         progress: undefined as undefined | number,
-        coreCount: window.navigator.hardwareConcurrency - 1,
+        workerCount: window.navigator.hardwareConcurrency * 2 - 1,
     },
     styles: css`
         :host {
@@ -40,7 +40,7 @@ export const VirApp = defineElementNoInputs({
                   `}
             <input
                 ${listen('change', (event) =>
-                    handleFileChange(event, updateState, state.coreCount),
+                    handleFileChange(event, updateState, state.workerCount),
                 )}
                 type="file"
                 id="fileElem"
@@ -50,7 +50,7 @@ export const VirApp = defineElementNoInputs({
     },
 });
 
-async function handleFileChange(event: Event, updateState: AnyFunction, coreCount: number) {
+async function handleFileChange(event: Event, updateState: AnyFunction, workerCount: number) {
     const inputElement = event.target as HTMLInputElement;
     const fileList = Array.from(inputElement.files || []);
 
@@ -59,8 +59,8 @@ async function handleFileChange(event: Event, updateState: AnyFunction, coreCoun
     }
 
     startParsing({
-        coreCount,
-        files: fileList,
+        workerCount,
+        mcaFiles: fileList,
         minecraftVersion: minecraftVersions.java[1][19][2],
         worldName: '',
     });

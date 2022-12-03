@@ -1,8 +1,8 @@
 import {MinecraftBlockName, MinecraftBlockNameMapping} from '../data/minecraft-block-name';
-import {virMcMapperDatabase} from './block-database';
+import {virMCMapperDatabase} from './block-database';
 
 export async function getSavedMinecraftBlockNames(): Promise<MinecraftBlockNameMapping> {
-    const blockNames = await virMcMapperDatabase.minecraftBlockNames.toArray();
+    const blockNames = await virMCMapperDatabase.minecraftBlockNames.toArray();
 
     return blockNameArrayToMapping(blockNames);
 }

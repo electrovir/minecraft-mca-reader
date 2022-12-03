@@ -24,9 +24,9 @@ type ParseAnvilOutput = {
     blockCoords: ReadonlyArray<Coords3D>;
 };
 
-const anvilCache = new WeakMap<File, ParseAnvilOutput>();
+const anvilCache = new WeakMap<Readonly<File>, ParseAnvilOutput>();
 
-async function anvilParse(file: File): Promise<ParseAnvilOutput> {
+async function anvilParse(file: Readonly<File>): Promise<ParseAnvilOutput> {
     const cached = anvilCache.get(file);
     if (cached) {
         return cached;
@@ -64,11 +64,11 @@ async function anvilParse(file: File): Promise<ParseAnvilOutput> {
     };
 }
 
-async function countBlocks(file: File) {
+async function countBlocks(file: Readonly<File>) {
     return (await anvilParse(file)).blockCoords.length;
 }
 
-export async function readBlocks(file: File): Promise<McaParserOutput> {
+export async function readBlocks(file: Readonly<File>): Promise<McaParserOutput> {
     const {anvil, blockCoords} = await anvilParse(file);
 
     console.log('got block coords');
@@ -97,7 +97,7 @@ export async function readBlocks(file: File): Promise<McaParserOutput> {
             }
         }
         const percent = Math.round((blockIndex / total) * 100);
-        parseProgressCallback(percent);
+        // parseProgressCallback(percent);
         await wait(17 * 5);
     }
     console.log('got blocks');

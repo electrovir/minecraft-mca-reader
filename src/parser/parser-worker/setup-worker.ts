@@ -1,9 +1,9 @@
 import {parserWorkerPath} from './parser-worker-path';
-import {AnyMessage} from './worker-messages';
+import {AnyMessageData} from './worker-messages';
 
 export function setupWorker(
     workerName: string,
-    receivedMessageCallback: (message: MessageEvent<AnyMessage>) => void,
+    receivedMessageCallback?: (message: MessageEvent<AnyMessageData>) => void,
 ) {
     const worker = new Worker(parserWorkerPath, {type: 'module', name: workerName});
     worker.onerror = (event) => {
@@ -12,7 +12,9 @@ export function setupWorker(
     worker.onmessageerror = (event) => {
         console.error(`${workerName} worker encountered a message error: ${event}`);
     };
-    worker.onmessage = receivedMessageCallback;
+    if (receivedMessageCallback) {
+        worker.onmessage = receivedMessageCallback;
+    }
 
     return worker;
 }

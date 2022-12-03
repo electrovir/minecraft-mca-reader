@@ -37,6 +37,6 @@ export async function readFile(
         returnPromise.reject(`FileReader "${readType}" was aborted on "${file.name}"`);
     };
 
-    fileReader[readType](file);
+    (fileReader[readType] as any)(file);
     return returnPromise.promise;
 }
