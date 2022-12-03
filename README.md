@@ -1,2 +1,3 @@
-# minecraft-mca-reader
-Yet another MCA reader.
+# VirMcMapper
+
+An all-in-the-browser Minecraft world map.

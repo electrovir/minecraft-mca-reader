@@ -1,0 +1,8 @@
+*.tgz
+*.tsbuildinfo
+.DS_Store
+/Icon?
+coverage/
+dist/
+graphics/
+node_modules/
